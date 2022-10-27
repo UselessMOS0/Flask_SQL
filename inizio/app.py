@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for,request
+from flask import Flask, render_template, url_for, request, redirect
 import pandas as pd
 
   # collegamento Database SQL
@@ -8,8 +8,26 @@ conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='bono.walter1', 
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+
+@app.route('/', methods=['GET','POST'])
 def home():
+  if request.method == 'POST':
+    selectedValue = request.form['flexRadioDefault']
+    if selectedValue in range(0,2):
+      
+      return redirect(url_for('tabella', selectedValue=selectedValue))
+    else:
+      return redirect(url_for('search'))
+
+  return  render_template('home.html')
+
+@app.route('/tabella-<selectedValue>', methods=['GET'])
+def tabella(selectedValue):
+  return  render_template('tabella.html')
+
+
+@app.route('/search', methods=['GET'])
+def search():
   return  render_template('search.html')
 
 
@@ -21,7 +39,7 @@ def result():
   df_prodotti = pd.read_sql(query,conn)
   # visualizzare le informazioni
   
-  return  render_template('result.html',colonne = df_prodotti.columns.values(), dati = df_prodotti.values.tolist())
+  return  render_template('result.html',colonne = df_prodotti.columns.values, dati = df_prodotti.values)
 
     
 if __name__ == '__main__':
