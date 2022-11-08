@@ -17,14 +17,9 @@
         {% for record in dati %}
             <tr>
                 {% for index in range(colonne|length) %}
-                    {% if index == 1 %}
-                        <td onclick="href='/ordini'">
-                            {{record[index]}}
-                        </td>
-                    {% else %}
-                        <td>
-                            {{record[index]}}
-                        </td>
+                    <td>
+                        {{record[index]}}
+                    </td>
                 {% endfor %}
             </tr>
         {% endfor %}

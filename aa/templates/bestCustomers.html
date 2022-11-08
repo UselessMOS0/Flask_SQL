@@ -17,14 +17,15 @@
         {% for record in dati %}
             <tr>
                 {% for index in range(colonne|length) %}
-                    {% if index == 1 %}
-                        <td onclick="href='/ordini'">
-                            {{record[index]}}
+                    {% if index == 0 %}
+                        <td>
+                            <a href="/ordini/{{record[0]}}">{{record[index]}}</a>
                         </td>
                     {% else %}
                         <td>
                             {{record[index]}}
                         </td>
+                    {% endif%}
                 {% endfor %}
             </tr>
         {% endfor %}

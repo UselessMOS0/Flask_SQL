@@ -11,15 +11,16 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
 def home():
-  if request.method == 'POST':
-    selectedValue = request.form['flexRadioDefault']
+  if not request.method == 'POST':
+    return  render_template('home.html')
+  else:
+    selectedValue = int(request.form['flexRadioDefault'])
     if selectedValue in range(0,2):
       
       return redirect(url_for('tabella', selectedValue=selectedValue))
     else:
       return redirect(url_for('search'))
 
-  return  render_template('home.html')
 
 @app.route('/tabella-<selectedValue>', methods=['GET'])
 def tabella(selectedValue):

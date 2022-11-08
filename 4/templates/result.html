@@ -8,26 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
+
     <table class="table">
-        <tr>
-            {% for col in colonne %}
-                <th>{{col}}</th>
-            {% endfor %}
-        </tr>
-        {% for record in dati %}
-            <tr>
+        <tbody>
+            {% for record in dati %}
                 {% for index in range(colonne|length) %}
-                    {% if index == 1 %}
-                        <td onclick="href='/ordini'">
-                            {{record[index]}}
-                        </td>
-                    {% else %}
-                        <td>
-                            {{record[index]}}
-                        </td>
+                    <tr>
+                        <th scope="row">{{colonne[index]}}</th>
+                            <td>{{record[index]}}</td>
+                    </tr>
                 {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
+            {% endfor %}
+      </table>
 </body>
 </html>
